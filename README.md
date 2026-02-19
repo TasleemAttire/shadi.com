@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fairy Tale Wedding Invite</title>
+
+<style>
+body{
+    margin:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    background:linear-gradient(135deg,#ffd6e8,#ffc0cb,#ffe6f2);
+    font-family: 'Georgia', serif;
+    overflow:hidden;
+}
+
+/* Floating Hearts */
+.heart{
+    position:absolute;
+    color:#ff69b4;
+    animation:float 6s linear infinite;
+    font-size:20px;
+}
+@keyframes float{
+    0%{transform:translateY(100vh) scale(0.5); opacity:1;}
+    100%{transform:translateY(-10vh) scale(1.2); opacity:0;}
+}
+
+/* Envelope */
+.envelope{
+    position:relative;
+    width:400px;
+    height:300px;
+    background:#ff69b4;
+    cursor:pointer;
+    transition:0.6s;
+    border-radius:12px;
+    box-shadow:0 15px 30px rgba(0,0,0,0.2);
+}
+
+/* Flap */
+.envelope::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    width:0;
+    height:0;
+    border-left:200px solid transparent;
+    border-right:200px solid transparent;
+    border-top:150px solid #ff1493;
+    transition:0.6s;
+    transform-origin:top;
+}
+
+.envelope.open::before{
+    transform:rotateX(180deg);
+}
+
+/* Letter */
+.letter{
+    position:absolute;
+    top:20px;
+    left:15px;
+    width:370px;
+    height:260px;
+    background:white;
+    border-radius:12px;
+    padding:15px;
+    box-sizing:border-box;
+    text-align:center;
+    display:none;
+    animation:fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:scale(0.9);}
+    to{opacity:1; transform:scale(1);}
+}
+
+h2{
+    color:#ff1493;
+    margin:5px 0;
+}
+
+.names{
+    font-size:20px;
+    font-weight:bold;
+    color:#d63384;
+    margin:5px 0;
+}
+
+.tagline{
+    font-size:14px;
+    color:#555;
+    margin-bottom:8px;
+}
+
+.couple-img{
+    width:180px;
+    height:100px;
+    object-fit:cover;
+    border-radius:10px;
+    margin-top:10px;
+    border:3px solid #ff69b4;
+
+.date{
+    margin-top:8px;
+    font-weight:bold;
+    color:#ff1493;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Floating Hearts -->
+<div class="heart" style="left:10%;">💖</div>
+<div class="heart" style="left:30%; animation-delay:2s;">💗</div>
+<div class="heart" style="left:60%; animation-delay:4s;">💕</div>
+<div class="heart" style="left:80%; animation-delay:1s;">💞</div>
+
+<div class="envelope" onclick="openEnvelope(this)">
+    <div class="letter" id="letter">
+        <h2>💍 Shadi Date Fix 💕</h2>
+
+        <div class="tagline">
+            Together with their families
+        </div>
+
+        <div class="names">
+            Sahil ❤️ Khadija
+        </div>
+
+        <img src="couple.jpg" alt="Bride & Groom" class="couple-img">
+
+        <div class="date">
+            📅 01 April 2026
+        </div>
+    </div>
+</div>
+
+<script>
+// Soft Fairy Tale Sound Generator
+function playFairySound(){
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = audioCtx.createOscillator();
+    const gainNode = audioCtx.createGain();
+
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(800, audioCtx.currentTime);
+    oscillator.frequency.exponentialRampToValueAtTime(1500, audioCtx.currentTime + 0.5);
+
+    gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+
+    oscillator.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+
+    oscillator.start();
+    oscillator.stop(audioCtx.currentTime + 0.5);
+}
+
+function openEnvelope(el){
+    el.classList.toggle("open");
+    document.getElementById("letter").style.display="block";
+
+    // Play fairy sparkle sound
+    playFairySound();
+}
+</script>
+
+</body>
+</html>
